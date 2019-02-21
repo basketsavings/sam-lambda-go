@@ -29,12 +29,12 @@ deploy: build zip
 	sam package \
 		--template-file ./cloudformation.yaml \
 		--output-template-file ./cloudformation_deploy.yaml \
-		--s3-bucket $(ENV)-$(ACCOUNT_ID)-serverless-code
+		--s3-bucket $(ACCOUNT_ID)-serverless-code
 	sam deploy \
 		--no-fail-on-empty-changeset \
 		--capabilities CAPABILITY_NAMED_IAM \
 		--template-file ./cloudformation_deploy.yaml \
-		--stack-name $(ENV)-$(stack_name) \
+		--stack-name $(stack_name) \
 		--parameter-overrides EnvironmentType=$(ENV)
 
 deploy_sandbox: $(eval ENV := personal) deploy
