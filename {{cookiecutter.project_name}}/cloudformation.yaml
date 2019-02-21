@@ -33,14 +33,14 @@ Resources:
   {{camel_name}}BasketApiBasePathMapping:
     Type: AWS::ApiGateway::BasePathMapping
     Properties:
-      BasePath: {{api_name}}
+      BasePath: {{base_path}}
       DomainName: !ImportValue BasketApiGatewayDomain
       RestApiId: !Ref {{camel_name}}Api
 
   {{camel_name}}BasketSavingsApiBasePathMapping:
     Type: AWS::ApiGateway::BasePathMapping
     Properties:
-      BasePath: {{api_name}}
+      BasePath: {{base_path}}
       DomainName: !ImportValue BasketSavingsApiGatewayDomain
       RestApiId: !Ref {{camel_name}}Api
 
