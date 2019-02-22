@@ -17,7 +17,6 @@ Parameters:
     Type: String
 
 Resources:
-  
   {{camel_name}}Api:
     Type: AWS::Serverless::Api
     Properties:

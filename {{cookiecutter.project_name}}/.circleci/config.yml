@@ -1,0 +1,114 @@
+version: 2.1
+
+orbs:
+  aws-cli: circleci/aws-cli@0.1.4
+  slack: circleci/slack@0.1.0
+
+common-test-steps: &common-test-steps
+  steps:
+    - checkout
+    - attach_workspace:
+        at: .
+    - aws-cli/install
+    - run: make test
+
+common-release-steps: &common-release-steps
+  steps:
+    - checkout
+    - attach_workspace:
+        at: .
+    - aws-cli/install
+    - run: 
+        name: Deploy {{api_name}} Microservice
+        command: make deploy
+
+jobs:
+  test-dev:
+    executor: aws-cli/default
+    environment:
+      ENV: dev
+    <<: *common-test-steps
+
+  release-dev:
+    executor: aws-cli/default 
+    environment:
+      ENV: dev
+    <<: *common-release-steps
+
+  test-stage:
+    executor: aws-cli/default
+    environment:
+      ENV: stage
+    <<: *common-test-steps
+
+  release-stage:
+    executor: aws-cli/default 
+    environment:
+      ENV: stage
+    <<: *common-release-steps
+
+  test-prod:
+    executor: aws-cli/default
+    environment:
+      ENV: prod
+    <<: *common-test-steps
+
+  release-prod:
+    executor: aws-cli/default 
+    environment:
+      ENV: prod
+    <<: *common-release-steps
+
+
+workflows:
+  version: 2
+  dev_deployment:
+    jobs:
+      - test-dev:
+          context: basket-dev
+          filters:
+            branches:
+              only:
+              - /^feature\/.*$/
+              - develop
+      - release-dev:
+          requires:
+            - test-dev
+          context: basket-dev
+          filters:
+            branches:
+              only:
+              - /^feature\/.*$/
+              - develop
+  stage_deployment:
+    jobs:
+      - test-stage:
+          context: basket-stage
+          filters:
+            branches:
+              only:
+              - /^release\/.*$|^hotfix\/.*$/
+      - release-stage:
+          requires:
+            - test-stage
+          context: basket-stage
+          filters:
+            branches:
+              only:
+              - /^release\/.*$|^hotfix\/.*$/
+  prod_deployment:
+    jobs:
+      - test-prod:
+          context: basket-prod
+          filters:
+            branches:
+              only:
+              - master
+      - release-prod:
+          requires:
+            - test-prod
+          context: basket-prod
+          filters:
+            branches:
+              only:
+              - master
