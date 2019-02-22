@@ -1,3 +1,4 @@
+{% set camel_name = cookiecutter.project_name|replace("-", " ")|title|replace(" ", "") -%}
 {% set api_name = "https://${"+ camel_name + "Api}.execute-api.${AWS::Region}.amazonaws.com/${apiGatewayStageName}"-%}
 version: 2.1
 
