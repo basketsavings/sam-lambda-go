@@ -31,22 +31,27 @@ Resources:
   # API Mappings
   {{camel_name}}BasketApiBasePathMapping:
     Type: AWS::ApiGateway::BasePathMapping
+    DependsOn: {{camel_name}}Api
     Properties:
       BasePath: {{cookiecutter.base_path}}
       DomainName: !ImportValue BasketApiGatewayDomain
-      Stage: !Ref "apiGatewayStageName"
+      # This will make the path shorter, but currently isn't working
+      # Stage: !Ref "apiGatewayStageName"
       RestApiId: !Ref {{camel_name}}Api
 
   {{camel_name}}BasketSavingsApiBasePathMapping:
     Type: AWS::ApiGateway::BasePathMapping
+    DependsOn: {{camel_name}}Api
     Properties:
       BasePath: {{cookiecutter.base_path}}
       DomainName: !ImportValue BasketSavingsApiGatewayDomain
-      Stage: !Ref "apiGatewayStageName"
+      # This will make the path shorter, but currently isn't working
+      # Stage: !Ref "apiGatewayStageName"
       RestApiId: !Ref {{camel_name}}Api
 
   {{camel_name}}Function:
     Type: AWS::Serverless::Function
+    DependsOn: {{camel_name}}Api
     Properties:
       CodeUri: artifacts/
       FunctionName: {{cookiecutter.project_name}}
