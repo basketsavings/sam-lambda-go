@@ -1,5 +1,4 @@
 {
   "project_name": "Name of the project",
-  "base_path": "What is the base path mapping in prod",
-  "repo_location": "Location of repo e.g. github.com/basketsavings"
+  "base_path": "What is the base path mapping in prod"
 }

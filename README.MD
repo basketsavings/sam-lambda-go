@@ -21,9 +21,10 @@ brew install aws-sam-cli
 ## Create new project
 
 ```text
-sam init -l  https://github.com/basketsavings/sam-lambda-go.git -o $GOPATH/src/<repo-location>/
+sam init -l  https://github.com/basketsavings/sam-lambda-go.git -o $GOPATH/src/github.com/basketsavings
 #prompt for project_name
-#prompt for repo_location (e.g. github.com/basketsavings)
+#prompt for base_path
+
 
 ```
 
@@ -32,7 +33,7 @@ For example
 ```text
 sam init -l https://github.com/basketsavings/sam-lambda-go.git -o $HOME/go/src/github.com/basketsavings
 # project_name: my-test
-# repo_location: github.com/basketsavings
+# base_path: base path mapping to core api
 ```
 
 You only need to specify the full git url the first time you use the template.  Subsequent times can be done simply as ```sam-lambda-go```.
