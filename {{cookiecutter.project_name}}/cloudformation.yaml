@@ -34,7 +34,7 @@ Resources:
     Properties:
       BasePath: {{cookiecutter.base_path}}
       DomainName: !ImportValue BasketApiGatewayDomain
-      StageName: !Ref "apiGatewayStageName"
+      Stage: !Ref "apiGatewayStageName"
       RestApiId: !Ref {{camel_name}}Api
 
   {{camel_name}}BasketSavingsApiBasePathMapping:
@@ -42,7 +42,7 @@ Resources:
     Properties:
       BasePath: {{cookiecutter.base_path}}
       DomainName: !ImportValue BasketSavingsApiGatewayDomain
-      StageName: !Ref "apiGatewayStageName"
+      Stage: !Ref "apiGatewayStageName"
       RestApiId: !Ref {{camel_name}}Api
 
   {{camel_name}}Function:
